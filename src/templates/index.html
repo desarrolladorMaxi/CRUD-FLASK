@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <h1 class="text-center mt-5 mb-5 text-primary">Notebook (CRUD)</h1>
+
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body">
+                <form action="/user" method="POST">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Marca</label>
+                            <input type="text" class="form-control mb-3" name="marca">
+                        </div>
+                        <div class="col">
+                            <label>Modelo</label>
+                            <input type="text" class="form-control mb-3" name="modelo">
+                        </div>
+                        <div class="col">
+                            <label>Pulgadas</label>
+                            <input type="text" class="form-control mb-3" name="pulgadas">
+                        </div>
+                        <div class="col">
+                            <label>Procesador</label>
+                            <input type="text" class="form-control mb-3" name="procesador">
+                        </div>
+                        <div class="col">
+                            <label>Ram</label>
+                            <input type="text" class="form-control mb-3" name="ram">
+                        </div>
+                        <div class="col">
+                            <label>Disco</label>
+                            <input type="text" class="form-control mb-3" name="disco">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-outline-success mb-3 mt-4" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                   
+                </form>
+
+
+                <!-- Tabla -->
+                
+                <table class="table table-bordered table-hover mt-4">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Pulgadas</th>
+                            <th scope="col">Procesador</th>
+                            <th scope="col">Ram</th>
+                            <th scope="col">Disco</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                
+                <tbody>
+                    {% for d in data %}
+                        <tr>
+                            <td>{{d.id}}</td>
+                            <td>{{d.marca}}</td>
+                            <td>{{d.modelo}}</td>
+                            <td>{{d.pulgadas}}</td>
+                            <td>{{d.procesador}}</td>
+                            <td>{{d.ram}}</td>
+                            <td>{{d.disco}}</td>
+                            <td><button class="btn btn-outline-warning btn-sm" id="btn-edit{{d.id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id}}">Editar</button></td>
+                            <td><a href="{{url_for('delete', id=d.id)}}" class="btn btn-outline-danger btn-sm">Borrar</a></td>
+                        </tr>
+               
+                        <!-- modal -->
+
+                        <div class="modal fade" id="modal{{d.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.marca}}</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/edit/{{d.id}}" method="post">
+                                        <label>Marca</label>
+                                        <input type="text" class="form-control mb-3" name="marca" value="{{d.marca}}">
+                                        <label>Modelo</label>
+                                        <input type="text" class="form-control mb-3" name="modelo" value="{{d.modelo}}">
+                                        <label>Pulgadas</label>
+                                        <input type="text" class="form-control mb-3" name="pulgadas" value="{{d.pulgadas}}">
+                                        <label>Procesador</label>
+                                        <input type="text" class="form-control mb-3" name="procesador" value="{{d.procesador}}">
+                                        <label>Ram</label>
+                                        <input type="text" class="form-control mb-3" name="ram" value="{{d.ram}}">
+                                        <label>Disco</label>
+                                        <input type="text" class="form-control mb-3" name="disco" value="{{d.disco}}">
+                                        
+                                  
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
+                                </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+
+                    {% endfor %}
+
+                </tbody> 
+
+            </table>
+
+
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-dark py-5 mt-5">
+        <div class="container text-light text-center">
+            <p class="display-5 mb-3">Maximiliano Neira</p>
+            <small class="text-white-50">&copy;2023</small>
+        </div>
+       
+    </footer>
+
+</body>
+</html>
